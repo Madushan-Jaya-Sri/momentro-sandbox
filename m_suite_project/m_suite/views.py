@@ -260,10 +260,120 @@ def profile_analyzer(request):
 
 def website_keyword(request):
     return render(request,"website_keyword.html",{})
-# from .forms import MyForm
-
-# def my_view(request):
-#     form = MyForm()
-#     return render(request, 'myapp/my_template.html', {'form': form})
 
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+import re
+
+def proceed_yt_url(request):
+    # Set Chrome options to disable notifications
+    chrome_options = Options()
+    chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.notifications": 2
+    })
+
+    # Initialize the Chrome WebDriver with the configured options
+    driver = webdriver.Chrome(options=chrome_options)
+
+    yt_url = "" 
+    
+    if request.method == "POST":
+        yt_url = request.POST.get('yt_url')
+        
+        urls = [yt_url]
+        print(urls)
+        
+        for url in urls:
+            # Open the YouTube channel URL
+            driver.get(url)
+
+            # Get the channel name
+            channel_name_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="channel-name"]')))
+            channel_name = channel_name_element.text
+        
+            pro_pic = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="img"]')))
+            image = pro_pic.get_attribute("src")
+            details = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="content"]')))
+            details.click()
+        
+            time.sleep(3)
+            
+            about = driver.find_elements(By.XPATH, '//*[@id="contents"]')
+            text = about[-1].text
+
+            lines = text.strip().split('\n')
+            join_date_line = lines[-3].strip() if lines else "Joined date not found"
+            join_date = join_date_line.replace("Joined ", "") if "Joined" in join_date_line else "Join date not found."
+
+            # Assuming 'text' contains the information about subscribers
+            pattern2_1 = r"(\d+)K subscribers"
+            pattern2_2 = r"(\d+)M subscribers"
+
+            
+            # Extract the number of videos
+            pattern3 = r"(\d+) videos"
+            match = re.search(pattern3, text)
+            num_videos = int(match.group(1)) if match else "Number of videos not found."
+
+            
+            # Extract the number of views
+            pattern4 = r"([\d,.]+) views"
+            match_views = re.search(pattern4, text)
+            num_views = int(match_views.group(1).replace(",", "")) if match_views else "Number of views not found."
+
+
+            
+            # Search for the pattern in the text
+            lines = text.strip().split('\n')
+            country = lines[-2].strip() if lines else "Country not found"
+
+
+
+            pattern2_1 = r"([\d.]+)K subscribers"
+            pattern2_2 = r"([\d.]+)M subscribers"
+            
+            combined_pattern = f"{pattern2_1}|{pattern2_2}"
+            match = re.search(combined_pattern, text)
+            
+            if match:
+                if 'K' in match.group(0):
+                    subscribers_str = match.group(1)
+                    subscribers = int(float(subscribers_str) * 1000)
+                elif 'M' in match.group(0):
+                    subscribers_str = match.group(2)
+                    subscribers = int(float(subscribers_str) * 1000000)
+            else:
+                subscribers = None
+
+            avg_n_v = int(num_views/num_videos)
+            
+            # # Print or store the extracted information
+            # print("Channel Name:", channel_name)
+            # print("Join Date:", join_date)
+            # print("Number of Subscribers:", subscribers)
+            # print("Number of Videos:", num_videos)
+            # print("Number of Views:", num_views)
+            # print("Country:", country)
+            # #print("Text:", text)
+            # print("-" * 50)
+       
+        
+    return render(request,"sentiment_analysis.html",
+                  {'image':image,
+                   'yt_url':yt_url,
+                   'channel_name':channel_name,
+                   'join_date':join_date,
+                   'subscribers':subscribers,
+                   'num_videos':num_videos,
+                   'num_views':num_views,
+                   'avg_n_v':avg_n_v,
+                   'country':country})
+
+    

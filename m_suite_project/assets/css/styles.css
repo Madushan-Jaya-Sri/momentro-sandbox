@@ -12433,7 +12433,7 @@ main .page .tab-content .tab-pane.fade .sentiment .second-title {
   padding: 20px 0;
 }
 main .page .tab-content .tab-pane.fade .sentiment .second-title .select-title {
-  font-size: 22px;
+  font-size: 14px;
 }
 main .page .tab-content .tab-pane.fade .sentiment .subscribers {
   background-color: #fff;
@@ -12443,7 +12443,7 @@ main .page .tab-content .tab-pane.fade .sentiment .subscribers {
 }
 main .page .tab-content .tab-pane.fade .sentiment .subscribers .subscribe .subscribe-title {
   font-size: 20px;
-  padding: 10px 0;
+  
 }
 main .page .tab-content .tab-pane.fade .sentiment .subscribers .subscribe-details .value {
   font-size: 18px;

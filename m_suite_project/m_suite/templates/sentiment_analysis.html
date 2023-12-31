@@ -114,56 +114,63 @@
                     </div>
                     <div class="row g-1">
                       <div class="col-12 col-md-10 col-lg-10">
+                        <form method="POST" action="{% url 'proceed_yt_url' %}">
+                          {% csrf_token %}
                         <div class="youtube">
                           <img src="{% static 'images/youtube.png' %}" alt="youtube" class="icon">
-                          <input type="url" placeholder="Enter Chanal URL Here" class="url">
+                          <input type="text" name='yt_url' placeholder="Enter Chanal URL Here" class="url" value = {{yt_url}}>
                         </div>
                       </div>
                       <div class="col-12 col-md-2 col-lg-2">
                         <div class="submit-btn">
-                          <button class="submit">Submit</button>
+                          <button class="submit" type ="submit">Submit</button>
                         </div>
                       </div>
                     </div>
-                    <div class="second-title">
+
+                  </form>
+                    {% comment %} <div class="second-title">
                       <h3 class="select-title">
                         Select the Data Range
                       </h3>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="row g-3">
                       <div class="col-12 col-md-3 col-lg-3">
                         <div class="subscribers">
                           <div class="subscribe">
                             <h4 class="subscribe-title">
-                              Channel Name
+                              {{channel_name}}
+                              <img src="{{image}}" width="50px",height="50px" alt="pro_pic">
+                              
                             </h4>
                             
                           </div>
-                          <h6 class="name" style="font-style: italic;">Country</h6>
+                          
+                          <h6 class="name" style="font-style: italic;">{{country}}</h6>
                           <div class="subscribe-details">
                             <div class="row g-0">
                               <div class="col-12 col-md-6 col-lg-6">
-                                <p class="value">100K</p>
+                                <p class="value">{{subscribers}}</p>
                                 <p class="name">Subscrubers</p>
                               </div>
                               <div class="col-12 col-md-6 col-lg-6">
-                                <p class="value">238</p>
+                                <p class="value">{{num_videos}}</p>
                                 <p class="name">No of videos</p>
                               </div>
                             </div>
                             <div class="row g-2">
                               <div class="col-12 col-md-6 col-lg-6">
-                                <p class="value">100k</p>
+                                <p class="value">{{avg_n_v}}</p>
                                 <p class="name">Avg. views</p>
                               </div>
                               <div class="col-12 col-md-6 col-lg-6">
-                                <p class="value">100k</p>
+                                <p class="value">{{num_views}}</p>
                                 <p class="name">No. of views </p>
                               </div>
                             </div>
                             <div class="row g-0">
-                              <div class="col-12 col-md-6 col-lg-6">
-                                <p class="value">20/07/2001</p>
+                              <div>
+                                <p class="value">{{join_date}}</p>
                                 <p class="name">Joined Date </p>
                               </div>
 
