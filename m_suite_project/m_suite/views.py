@@ -272,6 +272,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import re
 
+
+channel_names = []
+video_titles = []
 def proceed_yt_url(request):
     # Set Chrome options to disable notifications
     chrome_options = Options()
@@ -297,7 +300,8 @@ def proceed_yt_url(request):
             # Get the channel name
             channel_name_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="channel-name"]')))
             channel_name = channel_name_element.text
-        
+
+
             pro_pic = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="img"]')))
             image = pro_pic.get_attribute("src")
             details = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="content"]')))
@@ -353,6 +357,38 @@ def proceed_yt_url(request):
                 subscribers = None
 
             avg_n_v = int(num_views/num_videos)
+            video = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="tabsContent"]/yt-tab-group-shape/div[1]/yt-tab-shape[2]/div[1]')))
+            video.click()
+
+            
+            
+            # Scroll down the page multiple times (adjust the count as needed)
+            for _ in range(100):
+                driver.execute_script("window.scrollBy(0, 500)")
+                time.sleep(0.2)
+                
+
+            
+            # Scrape video titles
+            titles = driver.find_elements(By.XPATH, '//*[@id="video-title"]')
+            for title in titles:
+                channel_names.append(channel_name)
+                video_titles.append(title.text)
+
+            # Create a DataFrame from the scraped data
+            data = {'Channel Name': channel_names, 'Video Title': video_titles}
+            df_yt_titles = pd.DataFrame(data)
+
+            # Close the WebDriver when done
+            #driver.quit()
+
+            # Print or save the DataFrame
+            print(df_yt_titles)
+            df_yt_titles = df_yt_titles.iloc[0:9,:].to_dict(orient='records')
+            
+            
+            
+
             
             # # Print or store the extracted information
             # print("Channel Name:", channel_name)
@@ -367,6 +403,7 @@ def proceed_yt_url(request):
         
     return render(request,"sentiment_analysis.html",
                   {'image':image,
+                   'df_yt_titles':df_yt_titles,
                    'yt_url':yt_url,
                    'channel_name':channel_name,
                    'join_date':join_date,
@@ -375,5 +412,7 @@ def proceed_yt_url(request):
                    'num_views':num_views,
                    'avg_n_v':avg_n_v,
                    'country':country})
+
+    
 
     

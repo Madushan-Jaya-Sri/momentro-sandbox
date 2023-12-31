@@ -198,11 +198,26 @@
                             </h4>
                           </div>
                           <div class="topics">
+                            <table class="table table-hover">
+                              <tr>
+                                <th class="keyword">Keyword</th>
+                                <th class="count">Count</th>
+                              </tr>
+
+                              {% for entry in df_yt_titles %}
+                              <tr>
+                                  
+                                  <td class="key-data">{{ entry.Keyword }}</td>
+                                  <td class="count-data">{{ entry.Count }}</td>
+                              </tr>
+                              {% endfor %}
+
+                            </table>
+                            {% comment %} <p class="key-topic">abc</p>
                             <p class="key-topic">abc</p>
                             <p class="key-topic">abc</p>
                             <p class="key-topic">abc</p>
-                            <p class="key-topic">abc</p>
-                            <p class="key-topic">abc</p>
+                            <p class="key-topic">abc</p> {% endcomment %}
                           </div>
                         </div>
                       </div>
