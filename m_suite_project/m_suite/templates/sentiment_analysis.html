@@ -1,0 +1,886 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M-Suite Admin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+      integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="site-main">
+    <!-- Header -->
+    
+    <!-- Body Content -->
+    <main>
+        <div class="page"> 
+          <div class="row g-0">
+            <div class="col-12 col-md-3 col-lg-3">
+              <div class="nav-wraper">
+                <div class="inner-wrapper">
+                  <div class="logo">
+                    <img class="img-fluid site-logo" src="{% static 'images/site-logo.png' %}" alt="Logo"/>
+                  </div>
+                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">               
+                    
+                      <!-- Overview -->   
+  
+                      <a href="{% url 'overview' %}">
+                        <button class="nav-link " id="v-pills-overview-tab" data-bs-toggle="pill" data-bs-target="#v-pills-overview" 
+                      type="button" role="tab" aria-controls="v-pills-overview" aria-selected="true"><img src="{% static 'images/1.png' %}" alt="" class="icon"> Overview</button>
+                      </a>   
+                              
+                      
+                      
+                      <!-- Website Keyword Analysis -->
+                      <a href="{% url 'website_keyword' %}">
+                        <button class="nav-link" id="v-pills-website-keyword-tab" data-bs-toggle="pill" data-bs-target="/website-keyword"
+                        type="button" role="tab" aria-controls="v-pills-website-keyword" aria-selected="true"><img src="{% static 'images/2.png' %}"  alt="" class="icon">Website Keyword Analysis</button>
+                      </a>
+                      
+                      
+                        <!-- Brand Personility Audit -->
+                        <a href="{% url 'brand_personality' %}">
+                        <button class="nav-link" id="v-pills-brand-tab" data-bs-toggle="pill" data-bs-target="#v-pills-brand" 
+                      type="button" role="tab" aria-controls="v-pills-brand" aria-selected="false"><img src="{% static 'images/3.png' %}"  alt="" class="icon">Brand Personality Audit</button>
+                        </a>
+                      
+                      
+                      <!-- Setiment Analysis -->
+                      <a href="{% url 'sentiment_analysis' %}">
+                        <button class="nav-link active" id="v-pills-sentiment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sentiment" 
+                      type="button" role="tab" aria-controls="v-pills-sentiment" aria-selected="false"><img src="{% static 'images/4.png' %}"  alt="" class="icon">Youtube Analyzer</button>
+                      </a>
+                      
+                      
+                      <!-- Profile Analyzer -->
+                      <a href="{% url 'profile_analyzer' %}">
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" 
+                      type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><img src="{% static 'images/5.png' %}"  alt="" class="icon">Profile Analyzer</button>
+                      </a>
+                      
+                      
+                      <!-- Brand Authority -->
+                      <a href="{% url 'brand_authority' %}">
+                        <button class="nav-link" id="v-pills-authority-tab" data-bs-toggle="pill" data-bs-target="#v-pills-authority" 
+                      type="button" role="tab" aria-controls="v-pills-authority" aria-selected="false"><img src="{% static 'images/6.png' %}"  alt="" class="icon">Brand Authority</button> 
+                      </a>
+    
+        
+                  </div>
+                  <div class="bottom-image">
+                    <img src="{% static 'images/side-nav-bottom.png' %}" alt="" class="bottom">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-9 col-lg-9">
+              <div class="tab-content" id="v-pills-tabContent">
+            
+                <!-- Overview -->
+                <div class="tab-pane fade " id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
+                  <div class="overview">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+
+                  </div>
+                </div>
+                
+                <!-- Website Keyword Analysis -->
+                <div class="tab-pane fade" id="v-pills-website-keyword" role="tabpanel" aria-labelledby="v-pills-website-keyword-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Website Keyword Analysis
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="row g-0">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="input-url">
+                          <img src="{% static 'images/url.png' %}" alt="" class="icon">
+                          <input class="enter-url" type="url" placeholder="Enter Website URLs here">                      
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg 2">
+                        <div class="submit">
+                          <button class="submit-button">Submit</button>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="row g-0">
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="keyword-wrap">
+                          <div class="row">
+                            <div class="col-12 col-md-10 col-lg-10">
+                              <div class="keyword-title">
+                                <P class="title">Keyword</P>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-2 col-lg-2">
+                              <div class="down">
+                                <button class="download">
+                                  <img class="icon" src="{% static 'images/down.png' %}" alt="">
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table-wraper">
+                            <table class="table table-hover">
+                              <tr>
+                                <th class="keyword">Keyword</th>
+                                <th class="count">Count</th>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                              <tr>
+                                <td class="key-data">data</td>
+                                <td class="count-data">counts</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="bar-chart">
+                          <div class="barchart-title">
+                            <h4 class="title">
+                              Bar Chart
+                            </h4>
+                          </div>
+                          <div class="chart">
+                            <canvas id="wordcount-chart" height="40px" width="50px"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="word-cloud-wraper">                   
+                      <div class="word-cloud">
+                        <div class="row">
+                          <div class="col 12 col-md-10 col-lg-10">
+                            <div class="wordcloud-title">
+                              <h4 class="title">
+                                Word Cloud
+                              </h4>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-2 col-lg-2">
+                            <div class="download">
+                              <button class="down">
+                                <img src="{% static 'images/down.png' %}" alt="" class="icon">
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="image">
+                          <img class="cloud-image"src="{% static 'images/abc.png' %}" alt="">                        
+                        </div>
+                  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+    
+                
+                <!-- Brand Personility Audit -->
+                <div class="tab-pane fade" id="v-pills-brand" role="tabpanel" aria-labelledby="v-pills-brand-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                    </div>
+                  </div>
+
+                <!-- Setiment Analysis -->
+                <div class="tab-pane fade show active" id="v-pills-sentiment" role="tabpanel" aria-labelledby="v-pills-sentiment-tab">
+                  <div class="sentiment">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Youtube Analyzer
+                          </h2>
+                          <a href="#"><img src="./src/assets/images/histry.png" alt="" class="histry"></a>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="row g-1">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="youtube">
+                          <img src="{% static 'images/youtube.png' %}" alt="youtube" class="icon">
+                          <input type="url" placeholder="Enter Chanal URL Here" class="url">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="submit-btn">
+                          <button class="submit">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="second-title">
+                      <h3 class="select-title">
+                        Select the Data Range
+                      </h3>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-12 col-md-3 col-lg-3">
+                        <div class="subscribers">
+                          <div class="subscribe">
+                            <h4 class="subscribe-title">
+                              Channel Name
+                            </h4>
+                            
+                          </div>
+                          <h6 class="name" style="font-style: italic;">Country</h6>
+                          <div class="subscribe-details">
+                            <div class="row g-0">
+                              <div class="col-12 col-md-6 col-lg-6">
+                                <p class="value">100K</p>
+                                <p class="name">Subscrubers</p>
+                              </div>
+                              <div class="col-12 col-md-6 col-lg-6">
+                                <p class="value">238</p>
+                                <p class="name">No of videos</p>
+                              </div>
+                            </div>
+                            <div class="row g-2">
+                              <div class="col-12 col-md-6 col-lg-6">
+                                <p class="value">100k</p>
+                                <p class="name">Avg. views</p>
+                              </div>
+                              <div class="col-12 col-md-6 col-lg-6">
+                                <p class="value">100k</p>
+                                <p class="name">No. of views </p>
+                              </div>
+                            </div>
+                            <div class="row g-0">
+                              <div class="col-12 col-md-6 col-lg-6">
+                                <p class="value">20/07/2001</p>
+                                <p class="name">Joined Date </p>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3 col-lg-3">
+                        <div class="sentiment-wrap">
+                          <div class="setiment-title">
+                            <h4 class="title">
+                              Sentiment
+                            </h4>
+                          </div>
+                          <div class="sentiment-chart">
+                            <canvas class="sentimentCharts" height="0vh" width="100%"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3 col-lg-3">
+                        <div class="key-topcs-wrap">
+                          <div class="key-title">
+                            <h4 class="title">
+                              Key Topics
+                            </h4>
+                          </div>
+                          <div class="topics">
+                            <p class="key-topic">abc</p>
+                            <p class="key-topic">abc</p>
+                            <p class="key-topic">abc</p>
+                            <p class="key-topic">abc</p>
+                            <p class="key-topic">abc</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3 col-lg-3">
+                        <div class="dataset-wrap">
+                          <div class="row g-0">
+                            <div class="col-12 col-md-10 col-lg-10">
+                              <div class="dataset-title">
+                                <h4 class="title">
+                                  Dataset
+                                </h4>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md 2 col-lg-2">
+                              <div class="download">
+                                <img src="{% static 'images/down.png' %}" alt="download" class="icon">
+                              </div>
+                            </div>
+                          </div>                          
+                          <div class="dataset-table">
+                            <table class="dataset table table-bordered">
+                              <tr>
+                                <th class="id-title">
+                                  ID
+                                </th>
+                                <th class="username-title">
+                                  User Name
+                                </th>
+                                <th class="text-title">
+                                  Text
+                                </th>
+                              </tr>
+                              <tr>
+                                <td class="id">
+                                  0123
+                                </td>
+                                <td class="username">
+                                  username
+                                </td>
+                                <td class="text">
+                                  text
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="id">
+                                  0123
+                                </td>
+                                <td class="username">
+                                  username
+                                </td>
+                                <td class="text">
+                                  text
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="id">
+                                  0123
+                                </td>
+                                <td class="username">
+                                  username
+                                </td>
+                                <td class="text">
+                                  text
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="id">
+                                  0123
+                                </td>
+                                <td class="username">
+                                  username
+                                </td>
+                                <td class="text">
+                                  text
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="id">
+                                  0123
+                                </td>
+                                <td class="username">
+                                  username
+                                </td>
+                                <td class="text">
+                                  text
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cloud-wrap">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-6 col-lg-6">
+                          <div class="wordcloudSentiment-wraper">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              <!-- wordcloud sentiment -->
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                                  <div class="topic-wrap">
+                                    Word Cloud-Sentiment
+                                    <img src="{% static 'images/down.png' %}" alt="" class="icon">
+                                  </div>                                
+                                </button>
+                              </li>
+                              <!-- word cloud key topic -->
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                                  <div class="topic-wrap">
+                                    Word Cloud-Key Topics 
+                                    <img src="{% static 'images/down.png' %}" alt="" class="icon">
+                                  </div> 
+                                </button>
+                              </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                              <!-- wordcloud sentiment -->
+                              <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                <div class="wordcloud-sentiment">
+                                  <img src="{% static 'images/abc.png' %}" alt="cloud" class="sentiment">
+                                </div>
+                              </div>
+                              <!-- word cloud key topic -->
+                              <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                <div class="wordcloud-keyTopic">
+                                  <img src="{% static 'images/abc.png' %}" alt="cloud" class="sentiment">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                          <div class="comments">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="homes-tab" data-bs-toggle="tab" data-bs-target="#homes-tab-pane" type="button" role="tab" aria-controls="homes-tab-pane" aria-selected="true">Top Positive Comments
+                                  <img src="{% static 'images/down.png' %}" alt="" class="download">
+                                 </button>
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profiles-tab" data-bs-toggle="tab" data-bs-target="#profiles-tab-pane" type="button" role="tab" aria-controls="profiles-tab-pane" aria-selected="false">Top Negetive Comments 
+                                  <img src="{% static 'images/down.png' %}" alt="" class="download">
+                                </button>
+                              </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                              <div class="tab-pane fade show active" id="homes-tab-pane" role="tabpanel" aria-labelledby="homes-tab" tabindex="0">
+                                <div class="positive-wrap">
+                                  <div class="positive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="positive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="positive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="positive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="positive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="profiles-tab-pane" role="tabpanel" aria-labelledby="profiles-tab" tabindex="0">
+                                <div class="negetive-wrap">
+                                  <div class="negetive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="negetive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="negetive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="negetive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                  <div class="negetive">
+                                    <div class="row g-0">
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="usericon">
+                                          <img src="{% static 'images/list-aveter.png' %}" alt="user" class="user">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-md-8 col-lg-8">
+                                        <p class="username">Username</p>
+                                        <p class="comment">Comments</p>
+                                      </div>
+                                      <div class="col-12 col-md-2 col-lg-2">
+                                        <div class="img-wrap">
+                                          <img src="{% static 'images/youtube.png' %}" alt="" class="image">
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Profile Analyzer -->
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                 <!-- Brand Authority -->
+                <div class="tab-pane fade" id="v-pills-authority" role="tabpanel" aria-labelledby="v-pills-authority-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+      <footer class="footer-wrap py-3">
+        <div class="container">
+          <p class="copyright-text text-center mb-0">
+            © 2023 M-Suite All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+
+      <script>
+        document.getElementById('overview-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+      <script>
+        document.getElementById('sentiment_analysis-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+        <script>
+          document.getElementById('brand_authority-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+        <script>
+          document.getElementById('brand_personality-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+      
+          <script>
+            document.getElementById('profile_analyzer-link').addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent the default behavior of the link
+                window.location.href = this.getAttribute('href');
+            });
+            </script>
+
+            <script>
+              document.getElementById('website_keyword-link').addEventListener('click', function(event) {
+                  event.preventDefault();  // Prevent the default behavior of the link
+                  window.location.href = this.getAttribute('href');
+              });
+              </script>
+    <!-- Scripts -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.min.js"></script>
+
+
+    <!-- donut chart overview -->
+    <script>
+      const chartData = {
+        labels: ["Positive", "Neutral", "Negetive"],
+        data: [50, 70, 50],
+        backgroundColor: ['#239daa', '#ff0000', '#fba31b']
+      };
+
+      const myChart = document.querySelector(".sentimentCharts");
+
+      new Chart(myChart,{
+        type: "doughnut",
+        data: {
+          labels: chartData.labels,
+          datasets: [
+            {
+              data: chartData.data,
+              backgroundColor: chartData.backgroundColor,
+            },
+          ],
+        },
+        options: {
+          borderWidth: 1,
+          borderRadius: 2,
+          hoverBorderWidth: 5,
+          circumference: 180,
+          rotation: 270,
+          plugins: {
+            legend: {
+              display: false
+            },
+          },
+        }
+      });
+    </script>
+
+    <!-- External -->
+    <script src="{% static 'js/scripts-min.js' %}"></script>
+  </body>
+</html>

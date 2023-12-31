@@ -1,0 +1,480 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M-Suite Admin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+      integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="site-main">
+    <!-- Header -->
+    
+    <!-- Body Content -->
+    <main>
+        <div class="page"> 
+          <div class="row g-0">
+            <div class="col-12 col-md-3 col-lg-3">
+              <div class="nav-wraper">
+                <div class="inner-wrapper">
+                  <div class="logo">
+                    <img class="img-fluid site-logo"src="{% static 'images/site-logo.png' %}" alt="Logo"/>
+                  </div>
+                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">               
+                    
+                    <!-- Overview -->   
+                    
+                    <a href="{% url 'overview' %}">
+                      <button class="nav-link " id="v-pills-overview-tab" data-bs-toggle="pill" data-bs-target="#v-pills-overview" 
+                    type="button" role="tab" aria-controls="v-pills-overview" aria-selected="true"><img src="{% static 'images/1.png' %}" alt="" class="icon"> Overview</button>
+                    </a>   
+                            
+                    
+                    
+                    <!-- Website Keyword Analysis -->
+                    <a href="{% url 'website_keyword' %}">
+                      <button class="nav-link active" id="v-pills-website-keyword-tab" data-bs-toggle="pill" data-bs-target="/website-keyword"
+                     type="button" role="tab" aria-controls="v-pills-website-keyword" aria-selected="true"><img src="{% static 'images/2.png' %}"  alt="" class="icon">Website Keyword Analysis</button>
+                    </a>
+                    
+                    
+                     <!-- Brand Personility Audit -->
+                     <a href="{% url 'brand_personality' %}">
+                      <button class="nav-link" id="v-pills-brand-tab" data-bs-toggle="pill" data-bs-target="#v-pills-brand" 
+                    type="button" role="tab" aria-controls="v-pills-brand" aria-selected="false"><img src="{% static 'images/3.png' %}"  alt="" class="icon">Brand Personality Audit</button>
+                     </a>
+                    
+                    
+                    <!-- Setiment Analysis -->
+                    <a href="{% url 'sentiment_analysis' %}">
+                      <button class="nav-link" id="v-pills-sentiment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sentiment" 
+                    type="button" role="tab" aria-controls="v-pills-sentiment" aria-selected="false"><img src="{% static 'images/4.png' %}"  alt="" class="icon">Youtube Analyzer</button>
+                    </a>
+                    
+                    
+                    <!-- Profile Analyzer -->
+                    <a href="{% url 'profile_analyzer' %}">
+                      <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" 
+                    type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><img src="{% static 'images/5.png' %}"  alt="" class="icon">Profile Analyzer</button>
+                    </a>
+                    
+                    
+                    <!-- Brand Authority -->
+                    <a href="{% url 'brand_authority' %}">
+                      <button class="nav-link" id="v-pills-authority-tab" data-bs-toggle="pill" data-bs-target="#v-pills-authority" 
+                    type="button" role="tab" aria-controls="v-pills-authority" aria-selected="false"><img src="{% static 'images/6.png' %}"  alt="" class="icon">Brand Authority</button> 
+                    </a>
+                     
+    
+        
+                  </div>
+                  <div class="bottom-image">
+                    <img src="{% static 'images/side-nav-bottom.png' %}"alt="" class="bottom">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-9 col-lg-9">
+              <div class="tab-content" id="v-pills-tabContent">
+            
+                <!-- Overview -->
+                <div class="tab-pane fade " id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
+                  <div class="row">
+                    <div class="col-12 col-md-10 col-lg-10">
+                      <div class="title">
+                        <h2 class="website-title">
+                          Overview
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-2 col-lg-2">
+                      <div class="user">
+                        <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                       </div>
+                    </div>
+                  </div>
+                  <div class="div">
+                    <h1>
+                      Comming Soon
+                    </h1>
+                  </div>
+                </div>
+                
+                <!-- Website Keyword Analysis -->
+                <div class="tab-pane fade show active" id="v-pills-website-keyword" role="tabpanel" aria-labelledby="v-pills-website-keyword-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Website Keyword Analysis
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <form method="POST" action="{% url 'extract_links' %}">
+                      {% csrf_token %}
+                    <div class="row g-0">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="input-url">
+                          <div id="inputFormRow" class="input-url-wrap">
+                              <div class="input-group pt-1">
+                                <img src="{% static 'images/url.png' %}"  alt="">
+                                <input type="text" name="title[0]" class="form-control m-input" placeholder="Enter URL" autocomplete="on" class="enter-url" value={{given_url}}>
+                                <div class="input-group-append">
+                                  <button class="btn btn-info addRow" type="button">+</button>
+                                </div>
+                              </div>
+                          </div>
+                  
+                          <div id="newRow" class="new-url"></div>
+                      </div>
+
+                      </div>
+                      <div class="col-12 col-md-2 col-lg 2">
+                        <div class="submit">
+                          <button class="submit-button" type="submit">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+
+                  </form> 
+                    <div class="row g-0">
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="keyword-wrap">
+                          <div class="row">
+                            <div class="col-12 col-md-10 col-lg-10">
+                              <div class="keyword-title">
+                                <P class="title">Keyword</P>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-2 col-lg-2">
+                              <div class="down">
+                              <form>
+                                <a href="{% url 'download_dataset' %}" class="download" download="dataset.csv">
+                                  <img class="icon img-fluid" src="{% static 'images/down.png' %}" alt="">
+                              </a>
+                              
+                              
+                              </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table-wraper">
+                            <table class="table table-hover">
+                              <tr>
+                                <th class="keyword">Keyword</th>
+                                <th class="count">Count</th>
+                              </tr>
+
+                              {% for entry in keyword_list %}
+                              <tr>
+                                  
+                                  <td class="key-data">{{ entry.Keyword }}</td>
+                                  <td class="count-data">{{ entry.Count }}</td>
+                              </tr>
+                              {% endfor %}
+
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="bar-chart">
+                          <div class="barchart-title">
+                            <h4 class="title">
+                              Bar Chart
+                            </h4>
+                          </div>
+                          <div class="chart">
+                            <canvas id="wordcount-chart" height="40px" width="50px"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="word-cloud-wraper">                   
+                      <div class="word-cloud">
+                        <div class="row">
+                          <div class="col 12 col-md-10 col-lg-10">
+                            <div class="wordcloud-title">
+                              <h4 class="title">
+                                Word Cloud
+                              </h4>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-2 col-lg-2">
+                          </div>
+                        </div>
+                        <div class="image">
+                          <img class="cloud-image img-fluid" src="data:image/png;base64,{{ wordcloud_image }}" alt="">
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+    
+                
+                <!-- Brand Personility Audit -->
+                <div class="tab-pane fade" id="v-pills-brand" role="tabpanel" aria-labelledby="v-pills-brand-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Setiment Analysis -->
+                <div class="tab-pane fade" id="v-pills-sentiment" role="tabpanel" aria-labelledby="v-pills-sentiment-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Profile Analyzer -->
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Brand Authority -->
+                <div class="tab-pane fade" id="v-pills-authority" role="tabpanel" aria-labelledby="v-pills-authority-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"  alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      <h1>
+                        Comming Soon
+                      </h1>
+                    </div>
+                  </div>
+                </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+      <footer class="footer-wrap py-3">
+        <div class="container">
+          <p class="copyright-text text-center mb-0">
+            © 2023 M-Suite All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+
+
+    <!-- Scripts -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+          var rowIdx = 0;  // Unique index for each row
+
+          // Event delegation for dynamically added add buttons
+          $(document).on('click', '.addRow', function () {
+              rowIdx++;
+              var html = '';
+              html += '<div class="input-group mb-3" id="inputFormRow' + rowIdx + '">';
+              html += '<input type="text" name="title[' + rowIdx + ']" class="form-control m-input" placeholder="Enter URL" autocomplete="on">';
+              html += '<div class="input-group-append">';
+              html += '<button class="btn btn-info addRow" type="button">+</button>';
+              html += '<button class="btn btn-danger removeRow" type="button">-</button>';
+              html += '</div>';
+              html += '</div>';
+
+              $('#newRow').append(html);
+          });
+
+          // Event delegation for dynamically added remove buttons
+          $(document).on('click', '.removeRow', function () {
+              $(this).closest('.input-group').remove();
+          });
+      });
+  </script>
+
+
+<script>
+  document.getElementById('overview-link').addEventListener('click', function(event) {
+      event.preventDefault();  // Prevent the default behavior of the link
+      window.location.href = this.getAttribute('href');
+  });
+  </script>
+<script>
+  document.getElementById('sentiment_analysis-link').addEventListener('click', function(event) {
+      event.preventDefault();  // Prevent the default behavior of the link
+      window.location.href = this.getAttribute('href');
+  });
+  </script>
+  <script>
+    document.getElementById('brand_authority-link').addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent the default behavior of the link
+        window.location.href = this.getAttribute('href');
+    });
+    </script>
+  <script>
+    document.getElementById('brand_personality-link').addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent the default behavior of the link
+        window.location.href = this.getAttribute('href');
+    });
+    </script>
+
+    <script>
+      document.getElementById('profile_analyzer-link').addEventListener('click', function(event) {
+          event.preventDefault();  // Prevent the default behavior of the link
+          window.location.href = this.getAttribute('href');
+      });
+      </script>
+
+      <script>
+        document.getElementById('website_keyword-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+    
+<!-- Website Barchart -->
+
+
+
+<script>
+  const ctx = document.getElementById('wordcount-chart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [{% for entry in keyword_list_bar %}"{{ entry.Keyword }}",{% endfor %}],
+      datasets: [{
+        label: 'Number of Wordcount',
+        data: [{% for entry in keyword_list_bar %}{{ entry.Count }},{% endfor %}],
+        backgroundColor: '#a9218d',
+        barThickness: 25,
+        borderWidth: 2        
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+    layout: {
+        padding: {
+          top: 50, // Adjust the top padding to set the height of the plot area
+          bottom: 20, // Adjust the bottom padding if needed
+        }
+      },
+      maintainAspectRatio: false,
+      barPercentage: 6,
+      categoryPercentage: 1,
+    });
+</script>
+    <!-- External -->
+    <script  src="{% static 'js/scripts-min.js' %}"></script>
+  </body>
+</html>
