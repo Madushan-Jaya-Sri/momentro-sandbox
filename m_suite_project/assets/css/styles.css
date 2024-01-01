@@ -12501,18 +12501,18 @@ main .page .tab-content .tab-pane.fade .sentiment .dataset-wrap .dataset-table .
 }
 main .page .tab-content .tab-pane.fade .sentiment .dataset-wrap .dataset-table .dataset .id-title {
   background-color: #a28dc6;
-  padding: 0 20px;
-  font-size: 14px;
+  
+  font-size:8px;
 }
 main .page .tab-content .tab-pane.fade .sentiment .dataset-wrap .dataset-table .dataset .username-title {
   background-color: #a28dc6;
-  padding: 0 15px;
-  font-size: 14px;
+ 
+  font-size: 8px;
 }
 main .page .tab-content .tab-pane.fade .sentiment .dataset-wrap .dataset-table .dataset .text-title {
   background-color: #a28dc6;
-  font-size: 14px;
-  padding: 0 15px;
+  font-size: 8px;
+  
 }
 main .page .tab-content .tab-pane.fade .sentiment .dataset-wrap .dataset-table .dataset .id {
   text-align: center;

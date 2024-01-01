@@ -238,70 +238,23 @@
                             <table class="dataset table table-bordered">
                               <tr>
                                 <th class="id-title">
-                                  ID
+                                  Channel Name
                                 </th>
-                                <th class="username-title">
-                                  User Name
-                                </th>
+                                {% comment %} <th class="username-title">
+                                  Video title
+                                </th> {% endcomment %}
                                 <th class="text-title">
-                                  Text
+                                  Comment
                                 </th>
                               </tr>
+                              {% for entry in df_yt_comments %}
                               <tr>
-                                <td class="id">
-                                  0123
-                                </td>
-                                <td class="username">
-                                  username
-                                </td>
-                                <td class="text">
-                                  text
-                                </td>
+                                  
+                                  <td class="key-data">{{ entry.Channel_Name }}</td>
+                                  {% comment %} <td class="count-data">{{ entry.Video_Title }}</td> {% endcomment %}
+                                  <td class="count-data">{{ entry.Comments }}</td>
                               </tr>
-                              <tr>
-                                <td class="id">
-                                  0123
-                                </td>
-                                <td class="username">
-                                  username
-                                </td>
-                                <td class="text">
-                                  text
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="id">
-                                  0123
-                                </td>
-                                <td class="username">
-                                  username
-                                </td>
-                                <td class="text">
-                                  text
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="id">
-                                  0123
-                                </td>
-                                <td class="username">
-                                  username
-                                </td>
-                                <td class="text">
-                                  text
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="id">
-                                  0123
-                                </td>
-                                <td class="username">
-                                  username
-                                </td>
-                                <td class="text">
-                                  text
-                                </td>
-                              </tr>
+                              {% endfor %}
                             </table>
                           </div>
                         </div>

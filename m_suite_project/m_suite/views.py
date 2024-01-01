@@ -22,9 +22,26 @@ from django.contrib import messages
 from io import StringIO
 from io import StringIO
 from django.http import HttpResponse
-from .models import keyword_count_data
-
-
+from .models import keyword_count_data,youtube_comments
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+import re
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+import time
+import pandas as pd
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -262,15 +279,7 @@ def website_keyword(request):
     return render(request,"website_keyword.html",{})
 
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
-import re
+
 
 
 
@@ -409,12 +418,111 @@ def proceed_yt_url(request):
         
         df_yt_titles = df.iloc[0:5,1:].to_dict(orient='records')
 
+
+
+        # Create a DataFrame to store the data
+        data = []
+
+
+        # Loop through the videos and collect comments
+
+        for video in titles:
+            try:
+                #video_title = video.text
+                action = ActionChains(driver)
+                action.move_to_element(video).click().perform()
+            
+                time.sleep(1)
+                
+                
+                
+                for _ in range(2):
+                    # Scroll down by a fixed amount (e.g., 500 pixels)
+                    driver.execute_script("window.scrollBy(0, 500);")
+                    time.sleep(3)
+                # driver.execute_script("window.scrollBy(0, 1000);")
+                # time.sleep(4)
+                
+                comment_count = driver.find_element(By.XPATH,'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[1]/ytd-comments-header-renderer/div[1]/h2/yt-formatted-string/span[1]')
+                no_comments = int(comment_count.text)
+            
+                if no_comments == 0:
+                    break
+                
+                else:
+                
+                    for _ in range(int(no_comments/6)):
+                        # Scroll down by a fixed amount (e.g., 500 pixels)
+                        driver.execute_script("window.scrollBy(0, 500);")
+                        time.sleep(0.5)
+                    
+                    
+                    comments = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'style-scope ytd-expander')))
+            
+                    #comments = driver.find_elements(By.CLASS_NAME, 'style-scope ytd-expander')
+                    emojis = driver.find_elements(By.XPATH, '//*[@id="content-text"]/img')
+                    
+            
+                    for emoji_img in emojis:
+                        emoji = emoji_img.get_attribute('alt')
+                        driver.execute_script("arguments[0].innerHTML = arguments[1];", emoji_img, emoji)
+                        text_with_emojis = driver.find_element(By.XPATH, '//*[@id="content-text"]/img').text
+                        
+                    # Process comments and emojis (if needed)
+                    video_comments = []
+                    for comment in comments:
+                        video_comments.append(comment.text)
+            
+                    # Store comments in your data structure (e.g., a list)
+                    for comment in video_comments:
+                        data.append([channel_name, comment])
+
+                driver.back()
+                time.sleep(3)
+
+
         
+            
+            except ElementClickInterceptedException:
+                    print(f"ElementClickInterceptedException for video: {'video_title'}. Skipping...")
+                    
+            except StaleElementReferenceException:
+                    print(f"ElementClickInterceptedException for video: {'video_title'}. Skipping...")
+
+            except TimeoutException:
+                print("")
+
+            except NoSuchElementException:
+                print("")
+                
+                
+            # Go back to the channel page
+            
+            
+                
+
+
+        # Create a DataFrame from the collected data
+        df_comments = pd.DataFrame(data, columns=['Channel_Name', 'Comments'])
+
+        driver.close()
+        df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
+        # Print the DataFrame
+        print(df_comments)
         
+    
+        # Store keyword_df in the session
+    for index, row in df_comments.iterrows():
+        youtube_comments_instance, created = youtube_comments.objects.get_or_create(channel_name=row['Channel_Name'], defaults={'comments': row['Comments']})
+        youtube_comments_instance.Channel_Name = row['Channel_Name']
+        youtube_comments_instance.Comments = row['Comments']
+        youtube_comments_instance.save()
+    
     return render(request,"sentiment_analysis.html",
                   {'image':image,
                    'df_yt_titles':df_yt_titles,
                    'yt_url':yt_url,
+                   'df_yt_comments':df_yt_comments,
                    'channel_name':channel_name,
                    'join_date':join_date,
                    'subscribers':subscribers,
