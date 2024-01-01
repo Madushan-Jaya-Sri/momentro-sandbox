@@ -12319,6 +12319,7 @@ main .page .tab-content .tab-pane.fade .website .keyword-wrap .table-wraper .tab
   border-right: solid 1px #d8d8d8;
   border-bottom: solid 1px #d8d8d8;
   text-align: center;
+  font-size: 1px;
 }
 main .page .tab-content .tab-pane.fade .website .keyword-wrap .table-wraper .table .count-data {
   padding: 5px 10px;
@@ -13092,6 +13093,7 @@ tbody, td, tfoot, th, thead, tr {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
+  font-size: 8px;
 }
 
 label {

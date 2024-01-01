@@ -273,9 +273,13 @@ import time
 import re
 
 
-channel_names = []
-video_titles = []
+
+
 def proceed_yt_url(request):
+    
+    channel_names = []
+    video_titles = []
+    
     # Set Chrome options to disable notifications
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {
@@ -304,6 +308,7 @@ def proceed_yt_url(request):
 
             pro_pic = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="img"]')))
             image = pro_pic.get_attribute("src")
+            
             details = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, ' //*[@id="content"]')))
             details.click()
         
@@ -357,6 +362,29 @@ def proceed_yt_url(request):
                 subscribers = None
 
             avg_n_v = int(num_views/num_videos)
+
+            
+
+            
+            # # Print or store the extracted information
+            # print("Channel Name:", channel_name)
+            # print("Join Date:", join_date)
+            # print("Number of Subscribers:", subscribers)
+            # print("Number of Videos:", num_videos)
+            # print("Number of Views:", num_views)
+            # print("Country:", country)
+            # #print("Text:", text)
+            # print("-" * 50)
+       
+       
+        for url in urls:
+            # Open the YouTube channel URL
+            driver.get(url)
+
+            # Get the channel name
+            channel_name_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="channel-name"]')))
+            channel_name = channel_name_element.text
+
             video = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="tabsContent"]/yt-tab-group-shape/div[1]/yt-tab-shape[2]/div[1]')))
             video.click()
 
@@ -375,31 +403,13 @@ def proceed_yt_url(request):
                 channel_names.append(channel_name)
                 video_titles.append(title.text)
 
-            # Create a DataFrame from the scraped data
-            data = {'Channel Name': channel_names, 'Video Title': video_titles}
-            df_yt_titles = pd.DataFrame(data)
+        # Create a DataFrame from the scraped data
+        data = {'Channel Name': channel_names, 'Video_Title': video_titles}
+        df = pd.DataFrame(data)
+        
+        df_yt_titles = df.iloc[0:5,1:].to_dict(orient='records')
 
-            # Close the WebDriver when done
-            #driver.quit()
-
-            # Print or save the DataFrame
-            print(df_yt_titles)
-            df_yt_titles = df_yt_titles.iloc[0:9,:].to_dict(orient='records')
-            
-            
-            
-
-            
-            # # Print or store the extracted information
-            # print("Channel Name:", channel_name)
-            # print("Join Date:", join_date)
-            # print("Number of Subscribers:", subscribers)
-            # print("Number of Videos:", num_videos)
-            # print("Number of Views:", num_views)
-            # print("Country:", country)
-            # #print("Text:", text)
-            # print("-" * 50)
-       
+        
         
     return render(request,"sentiment_analysis.html",
                   {'image':image,
