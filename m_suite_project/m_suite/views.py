@@ -257,6 +257,8 @@ def download_dataset(request):
 
     return response
 
+
+
 def overview(request):
     return render(request,"overview.html",{})
 
@@ -447,7 +449,11 @@ def proceed_yt_url(request):
                 no_comments = int(comment_count.text)
             
                 if no_comments == 0:
-                    break
+                     for _ in range(1):
+                        # Scroll down by a fixed amount (e.g., 500 pixels)
+                        driver.execute_script("window.scrollBy(0, 500);")
+                        time.sleep(0.5)
+                    
                 
                 else:
                 
@@ -477,7 +483,7 @@ def proceed_yt_url(request):
                     for comment in video_comments:
                         data.append([channel_name, comment])
 
-                driver.back()
+                
                 time.sleep(3)
 
 
@@ -497,27 +503,31 @@ def proceed_yt_url(request):
                 
                 
             # Go back to the channel page
-            
+            driver.back()
+
             
                 
 
 
-        # Create a DataFrame from the collected data
-        df_comments = pd.DataFrame(data, columns=['Channel_Name', 'Comments'])
 
-        driver.close()
-        df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
-        # Print the DataFrame
-        print(df_comments)
-        
+
+        #driver.close()
+
+    df_comments = pd.DataFrame(data, columns=['Channel_Name', 'Comments'])
+   
+    request.session['df_comments'] = df_comments.to_dict(orient='records')
+        # Create a DataFrame from the collected data
     
-        # Store keyword_df in the session
+    df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
+
+    # Create instances for each comment and save them
     for index, row in df_comments.iterrows():
-        youtube_comments_instance, created = youtube_comments.objects.get_or_create(channel_name=row['Channel_Name'], defaults={'comments': row['Comments']})
-        youtube_comments_instance.Channel_Name = row['Channel_Name']
-        youtube_comments_instance.Comments = row['Comments']
+        youtube_comments_instance = youtube_comments(Channel_Name=row['Channel_Name'], Comments=row['Comments'])
         youtube_comments_instance.save()
-    
+   
+    df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
+    # Print the DataFrame
+    print(df_comments)
     return render(request,"sentiment_analysis.html",
                   {'image':image,
                    'df_yt_titles':df_yt_titles,
@@ -532,5 +542,63 @@ def proceed_yt_url(request):
                    'country':country})
 
     
+# def download_yt_comments(request):
+#     # Retrieve keyword_df from the session
+#     df_comments = request.session.get('df_comments', [])
 
-    
+#     # Check if keyword_df is empty
+#     if not df_comments:
+#         messages.error(request, 'No data to download. Please perform the extraction first.')
+#         return redirect('website_keyword')  # Redirect to the index view
+
+#     # Convert the data back to a DataFrame
+#     df_comments = pd.DataFrame(df_comments)
+
+#     # Create an in-memory CSV file
+#     csv_buffer = StringIO()
+#     writer = csv.writer(csv_buffer)
+
+#     # Write the header
+#     writer.writerow(['Channel_Name', 'Comments'])
+
+#     # Write the data
+#     for index, row in df_comments.iterrows():
+#         writer.writerow([row['Channel_Name'], row['Comments']])
+
+#     # Create an HttpResponse and set the headers
+#     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
+#     response['Content-Disposition'] = 'attachment; filename="yt_comments.csv"'
+
+#     return response
+
+import pandas as pd
+from io import BytesIO
+
+def download_yt_comments(request):
+    # Retrieve df_comments from the session
+    df_comments = request.session.get('df_comments', [])
+
+    # Check if df_comments is empty
+    if not df_comments:
+        messages.error(request, 'No data to download. Please perform the extraction first.')
+        return redirect('website_keyword')  # Redirect to the index view
+
+    # Convert the data back to a DataFrame
+    df_comments = pd.DataFrame(df_comments)
+
+    # Create an in-memory Excel file
+    excel_buffer = BytesIO()
+
+    # Write the DataFrame to an Excel file
+    df_comments.to_excel(excel_buffer, index=False, sheet_name='YT_Comments')
+
+    # Create an HttpResponse and set the headers
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=yt_comments.xlsx'
+
+    # Write the Excel file content to the response
+    excel_buffer.seek(0)
+    response.write(excel_buffer.read())
+
+    return response
+   
