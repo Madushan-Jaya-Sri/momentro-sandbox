@@ -632,12 +632,29 @@ def proceed_yt_url(request):
         output_df = pd.DataFrame({'Sentence': sentences, 'Sentiment': predictions})
 
         # Print the DataFrame
-        print(output_df)
+        #print(output_df)
+        
+        return output_df
 
     
-    sentiment_model(df_comments)
+    df_comments_yt = sentiment_model(df_comments)
     
+    df_comments_yt = df_comments_yt['Sentiment'].value_counts().reset_index()
+    
+    print(df_comments_yt)
+  # Assuming your dataframe is named df_comments_yt_counts
+    p_count = df_comments_yt[df_comments_yt['Sentiment'] == 'positive']['count'].iloc[0]
+    neg_count = df_comments_yt[df_comments_yt['Sentiment'] == 'negative']['count'].iloc[0]
 
+    # If you want to convert the counts to integers, you can do that:
+    p_count = int(p_count)
+    neg_count = int(neg_count)
+
+    print(p_count)
+    print(neg_count)
+
+    
+    
     
     return render(request,"sentiment_analysis.html",
                   {'image':image,
@@ -650,7 +667,9 @@ def proceed_yt_url(request):
                    'num_videos':num_videos,
                    'num_views':num_views,
                    'avg_n_v':avg_n_v,
-                   'country':country})
+                   'country':country,
+                   'p_count':p_count,
+                   'neg_count':neg_count})
 
     
 
