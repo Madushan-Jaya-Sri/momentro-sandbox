@@ -1,28 +1,36 @@
+# Django-related imports
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+
+# Data manipulation and analysis
 import pandas as pd
-from django.http import HttpResponse
+import numpy as np
+
+# Image processing
 import base64
 from io import BytesIO
-import numpy as np
 from PIL import Image
+
+# Web scraping
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urljoin
+
+# Natural Language Processing
 import re
 from nltk.corpus import stopwords
 from collections import Counter
-import pandas as pd
-from django.http import JsonResponse
+
+# Data visualization
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from django.http import FileResponse
+
+# CSV handling
 import csv
-from django.shortcuts import render, redirect
-from django.contrib import messages
 from io import StringIO
-from io import StringIO
-from django.http import HttpResponse
-from .models import keyword_count_data,youtube_comments
+
+# Selenium for web automation
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -30,29 +38,17 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import re
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-import time
-import pandas as pd
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
+# Miscellaneous
+import string
+import pickle
+import emoji
 import time
-from bs4 import BeautifulSoup
-import pandas as pd
-from urllib.parse import urlparse
+
+
+from .models import keyword_count_data,youtube_comments
 
 # def index(request):
 #     return render(request,"index.html",{})
@@ -283,6 +279,83 @@ def website_keyword(request):
 
 
 
+def remove_punctuations(text):
+    for punctuation in string.punctuation:
+        text = text.replace(punctuation, '')
+    return text
+
+
+def convert_emojis_to_words(text): 
+    # Convert emojis to words using emoji.demojize
+    text_with_emojis_as_words = emoji.demojize(text, delimiters=(' ', ' '))
+
+    return text_with_emojis_as_words
+
+
+with open('./savedModels/model/model.pickle', 'rb') as f:
+    model = pickle.load(f)
+with open('./savedModels/model/corpora/stopwords/english', 'r') as file:
+    sw = file.read().splitlines()
+vocab = pd.read_csv('./savedModels/model/vocabulary.txt', header=None)
+tokens = vocab[0].tolist()
+
+
+
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+
+def preprocessing(sentences):
+    preprocessed_sentences = []
+
+    for text in sentences:
+        data = pd.DataFrame([text], columns=['Full_text'])
+        data["Full_text"] = data["Full_text"].apply(lambda x: " ".join(x.lower() for x in x.split()))
+        data["Full_text"] = data['Full_text'].apply(lambda x: " ".join(re.sub(r'^https?:\/\/.*[\r\n]*', '', x, flags=re.MULTILINE) for x in x.split()))
+        data['Full_text'] = data['Full_text'].apply(convert_emojis_to_words)
+        data["Full_text"] = data["Full_text"].apply(remove_punctuations)
+        data["Full_text"] = data['Full_text'].str.replace('\d+', '', regex=True)
+        data["Full_text"] = data["Full_text"].apply(lambda x: " ".join(x for x in x.split() if x not in sw))
+        data["Full_text"] = data["Full_text"].apply(lambda x: " ".join(ps.stem(x) for x in x.split()))
+        preprocessed_sentences.append(data["Full_text"].iloc[0])
+
+    return preprocessed_sentences
+def vectorizer(ds, vocabulary):
+    vectorized_lst = []
+    
+    for sentence in ds:
+        sentence_lst = np.zeros(len(vocabulary))
+        
+        for i in range(len(vocabulary)):
+            if vocabulary[i] in sentence.split():
+                sentence_lst[i] = 1
+                
+        vectorized_lst.append(sentence_lst)
+        
+    vectorized_lst_new = np.asarray(vectorized_lst, dtype=np.float32)
+    
+    return vectorized_lst_new
+def get_prediction(vectorized_text):
+    vectorized_text = vectorized_text.reshape(1, -1)
+    prediction = model.predict(vectorized_text)
+    if prediction == 1:
+        return 'positive'
+    else:
+        return 'negative'
+
+
+
+# sentences = ['amazing product', 'not expected with the quality', 'great experience']
+# preprocessed_sentences = preprocessing(sentences)
+
+# vectorized_sentences = vectorizer(preprocessed_sentences, tokens)
+
+# predictions = [get_prediction(vectorized_sentence) for vectorized_sentence in vectorized_sentences]
+
+# # Create a DataFrame
+# output_df = pd.DataFrame({'Sentence': sentences, 'Sentiment': predictions})
+
+# # Print the DataFrame
+# print(output_df)
 
 
 
@@ -535,6 +608,37 @@ def proceed_yt_url(request):
     df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
     # Print the DataFrame
     print(df_comments)
+    
+    
+    
+
+
+
+
+
+
+    def sentiment_model(df_comments):
+        # Retrieve df_comments from the session
+        
+        
+        sentences = df_comments['Comments']
+        preprocessed_sentences = preprocessing(sentences)
+
+        vectorized_sentences = vectorizer(preprocessed_sentences, tokens)
+
+        predictions = [get_prediction(vectorized_sentence) for vectorized_sentence in vectorized_sentences]
+
+        # Create a DataFrame
+        output_df = pd.DataFrame({'Sentence': sentences, 'Sentiment': predictions})
+
+        # Print the DataFrame
+        print(output_df)
+
+    
+    sentiment_model(df_comments)
+    
+
+    
     return render(request,"sentiment_analysis.html",
                   {'image':image,
                    'df_yt_titles':df_yt_titles,
@@ -549,34 +653,7 @@ def proceed_yt_url(request):
                    'country':country})
 
     
-# def download_yt_comments(request):
-#     # Retrieve keyword_df from the session
-#     df_comments = request.session.get('df_comments', [])
 
-#     # Check if keyword_df is empty
-#     if not df_comments:
-#         messages.error(request, 'No data to download. Please perform the extraction first.')
-#         return redirect('website_keyword')  # Redirect to the index view
-
-#     # Convert the data back to a DataFrame
-#     df_comments = pd.DataFrame(df_comments)
-
-#     # Create an in-memory CSV file
-#     csv_buffer = StringIO()
-#     writer = csv.writer(csv_buffer)
-
-#     # Write the header
-#     writer.writerow(['Channel_Name', 'Comments'])
-
-#     # Write the data
-#     for index, row in df_comments.iterrows():
-#         writer.writerow([row['Channel_Name'], row['Comments']])
-
-#     # Create an HttpResponse and set the headers
-#     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
-#     response['Content-Disposition'] = 'attachment; filename="yt_comments.csv"'
-
-#     return response
 
 import pandas as pd
 from io import BytesIO
