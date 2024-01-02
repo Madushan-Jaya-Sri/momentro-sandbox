@@ -10,6 +10,7 @@ class keyword_count_data(models.Model):
         return f"{self.Keyword} - {self.Count}"
 
 class youtube_comments(models.Model):
+    
     Channel_Name = models.CharField(max_length=200)
     Comments = models.TextField()  # Use TextField for potentially longer comments
 

@@ -484,7 +484,7 @@ def proceed_yt_url(request):
                         data.append([channel_name, comment])
 
                 
-                time.sleep(3)
+                #time.sleep(3)
 
 
         
@@ -520,10 +520,17 @@ def proceed_yt_url(request):
     
     df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
 
-    # Create instances for each comment and save them
+    # Store keyword_df in the session
     for index, row in df_comments.iterrows():
-        youtube_comments_instance = youtube_comments(Channel_Name=row['Channel_Name'], Comments=row['Comments'])
+        youtube_comments_instance, created = youtube_comments.objects.get_or_create(Channel_Name=row['Channel_Name'], Comments=row['Comments'])
+
         youtube_comments_instance.save()
+
+
+    # # Create instances for each comment and save them
+    # for index, row in df_comments.iterrows():
+    #     youtube_comments_instance = youtube_comments(Channel_Name=row['Channel_Name'], Comments=row['Comments'])
+    #     youtube_comments_instance.save()
    
     df_yt_comments = df_comments.iloc[0:5,:].to_dict(orient='records')
     # Print the DataFrame
