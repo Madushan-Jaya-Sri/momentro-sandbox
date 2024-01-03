@@ -38,7 +38,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException,ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 
 # Miscellaneous
@@ -592,6 +592,9 @@ def proceed_yt_url(request):
             except NoSuchElementException:
                 print("")
                 
+            except ElementNotInteractableException:
+                print("")
+                
                 
             # Go back to the channel page
             driver.back()
@@ -672,7 +675,10 @@ def proceed_yt_url(request):
 
         print(output_df_2)
         df_sorted_p = output_df_2.sort_values(by='score', ascending=False)
-        filtered_df = df_sorted_p[df_sorted_n['score'] > positive_threshold]
+        filtered_df = df_sorted_p[df_sorted_p['score'] > positive_threshold]
+        
+        top_positive_comments=[]
+        top_negative_comments=[]
         
         if not filtered_df.empty:
             top_positive_comments = filtered_df['Sentence'].head(5)
@@ -728,20 +734,77 @@ def proceed_yt_url(request):
     print(neg_count)
     print(neu_count)
 
+    top_positive_comments_df = pd.DataFrame(top_positive_comments)
+    top_negative_comments_df = pd.DataFrame(top_negative_comments) 
+    
+    # Assuming you have a variable named top_negative_comments
+    # Assuming you have a variable named top_negative_comments
+    print(top_positive_comments_df.reset_index(drop=True, inplace=True))
 
-    tp1 = top_positive_comments[0]
-    tp2 = top_positive_comments[1]
-    tp3 = top_positive_comments[2]
-    tp4 = top_positive_comments[3]
-    tp5 = top_positive_comments[4]
-    
-    
-    tn1 = top_negative_comments[0]
-    tn2 = top_negative_comments[1]
-    tn3 = top_negative_comments[2]
-    tn4 = top_negative_comments[3]
-    tn5 = top_negative_comments[4]
-    
+    # Initialize variables
+    tp1 = ''
+    tp2 = ''
+    tp3 = ''
+    tp4 = ''
+    tp5 = ''
+
+    # Checking if the DataFrame is not empty before proceeding
+    if not top_positive_comments_df.empty:
+        # Assigning values to variables if not empty
+        if len(top_positive_comments_df['Sentence']) > 0:
+            tp1 = top_positive_comments_df['Sentence'][0]
+        if len(top_positive_comments_df['Sentence']) > 1:
+            tp2 = top_positive_comments_df['Sentence'][1]
+        if len(top_positive_comments_df['Sentence']) > 2:
+            tp3 = top_positive_comments_df['Sentence'][2]
+        if len(top_positive_comments_df['Sentence']) > 3:
+            tp4 = top_positive_comments_df['Sentence'][3]
+        if len(top_positive_comments_df['Sentence']) > 4:
+            tp5 = top_positive_comments_df['Sentence'][4]
+
+        # Printing the assigned variables
+        print(tp1)
+        print(tp2)
+        print(tp3)
+        print(tp4)
+        print(tp5)
+    else:
+        print("top_positive_comments_df is empty. Doing nothing.")
+
+    # Resetting the index and modifying the DataFrame in-place
+    top_negative_comments_df.reset_index(drop=True, inplace=True)
+
+    # Initialize variables
+    tn1 = ''
+    tn2 = ''
+    tn3 = ''
+    tn4 = ''
+    tn5 = ''
+
+    # Checking if the DataFrame is not empty before proceeding
+    if not top_negative_comments_df.empty:
+        # Assigning values to variables if not empty
+        if len(top_negative_comments_df['Sentence']) > 0:
+            tn1 = top_negative_comments_df['Sentence'][0]
+        if len(top_negative_comments_df['Sentence']) > 1:
+            tn2 = top_negative_comments_df['Sentence'][1]
+        if len(top_negative_comments_df['Sentence']) > 2:
+            tn3 = top_negative_comments_df['Sentence'][2]
+        if len(top_negative_comments_df['Sentence']) > 3:
+            tn4 = top_negative_comments_df['Sentence'][3]
+        if len(top_negative_comments_df['Sentence']) > 4:
+            tn5 = top_negative_comments_df['Sentence'][4]
+
+        # Printing the assigned variables
+        print(tn1)
+        print(tn2)
+        print(tn3)
+        print(tn4)
+        print(tn5)
+    else:
+        print("top_negative_comments_df is empty. Doing nothing.")
+
+        
     
     return render(request,"sentiment_analysis.html",
                   {'image':image,
