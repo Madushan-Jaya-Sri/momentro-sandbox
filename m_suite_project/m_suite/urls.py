@@ -6,7 +6,9 @@ urlpatterns = [
     #path('', views.index, name='index'),
     
     path('', views.overview, name='overview'),
+    
     path('website-keyword', views.extract_links, name='extract_links'),
+    path('history', views.history, name='history'),
     path('youtube', views.proceed_yt_url, name='proceed_yt_url'),
     path('youtube/download-yt-dataset/', views.download_yt_comments, name='download_yt_comments'),
     path('website-keyword/download-dataset/', views.download_dataset, name='download_dataset'),

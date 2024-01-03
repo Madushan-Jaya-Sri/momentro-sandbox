@@ -859,3 +859,17 @@ def download_yt_comments(request):
 
     return response
    
+from django.shortcuts import render
+from .models import keyword_count_data, youtube_comments
+
+def history(request):
+    # Fetch data from the keyword_count_data and youtube_comments tables
+    keyword_data = keyword_count_data.objects.all()
+    yt_comments_data = youtube_comments.objects.all()
+
+    # Convert querysets to lists or dictionaries based on your requirement
+    keyword_data_list = list(keyword_data.values())
+    yt_comments_data_list = list(yt_comments_data.values())
+
+    # Pass the data to the template
+    return render(request, "history.html", {'keyword_data': keyword_data_list, 'yt_comments_data': yt_comments_data_list})

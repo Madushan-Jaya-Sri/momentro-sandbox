@@ -103,7 +103,11 @@
                           <h2 class="website-title">
                             Youtube Analyzer
                           </h2>
-                          <a href="#"><img src="./src/assets/images/histry.png" alt="" class="histry"></a>
+                          <form id="historyForm" method="POST" action="{% url 'history' %}">
+                            {% csrf_token %}
+                            <img src="{% static 'images/histry.png' %}" alt="" class="history-button" onclick="submitForm()" type='button'>
+                        </form>
+                        
                         </div>
                       </div>
                       <div class="col-12 col-md-2 col-lg-2">
@@ -624,7 +628,11 @@
         }
       });
     </script>
-
+    <script>
+      function submitForm() {
+          document.getElementById('historyForm').submit();
+      }
+  </script>
     <!-- External -->
     <script src="{% static 'js/scripts-min.js' %}"></script>
   </body>

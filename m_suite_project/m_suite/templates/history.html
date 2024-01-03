@@ -34,54 +34,7 @@
                   <div class="logo">
                     <img class="img-fluid site-logo" src="{% static 'images/site-logo.png' %}"alt="Logo"/>
                   </div>
-                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">               
-                    
-                       <!-- Overview -->   
-  
-                       <a href="{% url 'overview' %}">
-                        <button class="nav-link " id="v-pills-overview-tab" data-bs-toggle="pill" data-bs-target="#v-pills-overview" 
-                      type="button" role="tab" aria-controls="v-pills-overview" aria-selected="true"><img src="{% static 'images/1.png' %}" alt="" class="icon"> Overview</button>
-                      </a>   
-                              
-                      
-                      
-                      <!-- Website Keyword Analysis -->
-                      <a href="{% url 'website_keyword' %}">
-                        <button class="nav-link" id="v-pills-website-keyword-tab" data-bs-toggle="pill" data-bs-target="/website-keyword"
-                        type="button" role="tab" aria-controls="v-pills-website-keyword" aria-selected="true"><img src="{% static 'images/2.png' %}"  alt="" class="icon">Website Keyword Analysis</button>
-                      </a>
-                      
-                      
-                        <!-- Brand Personility Audit -->
-                        <a href="{% url 'brand_personality' %}">
-                        <button class="nav-link" id="v-pills-brand-tab" data-bs-toggle="pill" data-bs-target="#v-pills-brand" 
-                      type="button" role="tab" aria-controls="v-pills-brand" aria-selected="false"><img src="{% static 'images/3.png' %}"  alt="" class="icon">Brand Personality Audit</button>
-                        </a>
-                      
-                      
-                      <!-- Setiment Analysis -->
-                      <a href="{% url 'sentiment_analysis' %}">
-                        <button class="nav-link" id="v-pills-sentiment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sentiment" 
-                      type="button" role="tab" aria-controls="v-pills-sentiment" aria-selected="false"><img src="{% static 'images/4.png' %}"  alt="" class="icon">Youtube Analyzer</button>
-                      </a>
-                      
-                      
-                      <!-- Profile Analyzer -->
-                      <a href="{% url 'profile_analyzer' %}">
-                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" 
-                      type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><img src="{% static 'images/5.png' %}"  alt="" class="icon">Profile Analyzer</button>
-                      </a>
-                      
-                      
-                      <!-- Brand Authority -->
-                      <a href="{% url 'brand_authority' %}">
-                        <button class="nav-link active" id="v-pills-authority-tab" data-bs-toggle="pill" data-bs-target="#v-pills-authority" 
-                      type="button" role="tab" aria-controls="v-pills-authority" aria-selected="false"><img src="{% static 'images/6.png' %}"  alt="" class="icon">Brand Authority</button> 
-                      </a>
-                     
-    
-        
-                  </div>
+                  
                   <div class="bottom-image">
                     <img src="{% static 'images/side-nav-bottom.png' %}" alt="" class="bottom">
                   </div>
@@ -101,7 +54,7 @@
                       <div class="col-12 col-md-10 col-lg-10">
                         <div class="title">
                           <h2 class="website-title">
-                            Brand Authority
+                           All records are available
                           </h2>
                         </div>
                       </div>
@@ -112,9 +65,44 @@
                       </div>
                     </div>
                     <div class="div">
-                      <h1>
+                      {% comment %} <h1>
                         Comming Soon
-                      </h1>         
+                      </h1> {% endcomment %}
+
+                      
+                      <h3>Websites keywords data</h3>
+                      <table border="1">
+                          <tr>
+                              <th>Keyword</th>
+                              <th>Count</th>
+                              <th>URL</th>
+                          </tr>
+                          {% for keyword_entry in keyword_data %}
+                              <tr>
+                                  <td>{{ keyword_entry.Keyword }}</td>
+                                  <td>{{ keyword_entry.Count }}</td>
+                                  <td>{{ keyword_entry.Url }}</td>
+                              </tr>
+                          {% endfor %}
+                      </table>
+                      
+                      <h3>YouTube Comments Data</h3>
+                      <table border="1">
+                          <tr>
+                              <th>Channel Name</th>
+                              <th>Comments</th>
+                          </tr>
+                          {% for yt_comments_entry in yt_comments_data %}
+                              <tr>
+                                  <td>{{ yt_comments_entry.Channel_Name }}</td>
+                                  <td>{{ yt_comments_entry.Comments }}</td>
+                              </tr>
+                          {% endfor %}
+                      </table>
+                      
+               
+                      
+
 
                     </div>
                   </div>
