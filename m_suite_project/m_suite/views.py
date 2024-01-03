@@ -334,14 +334,32 @@ def vectorizer(ds, vocabulary):
     vectorized_lst_new = np.asarray(vectorized_lst, dtype=np.float32)
     
     return vectorized_lst_new
+# def get_prediction(vectorized_text):
+#     vectorized_text = vectorized_text.reshape(1, -1)
+#     prediction = model.predict(vectorized_text)
+#     if prediction == 1:
+#         return 'positive'
+#     else:
+#         return 'negative'
+
+
+# Define the thresholds for categorization
+negative_threshold = 0.4
+positive_threshold = 0.7
+
+# Categorize the results
+def categorize(probability):
+    if probability < negative_threshold:
+        return 'negative'
+    elif negative_threshold <= probability < positive_threshold:
+        return 'neutral'
+    else:
+        return 'positive'
+    
 def get_prediction(vectorized_text):
     vectorized_text = vectorized_text.reshape(1, -1)
-    prediction = model.predict(vectorized_text)
-    if prediction == 1:
-        return 'positive'
-    else:
-        return 'negative'
-
+    prediction_score = model.predict_proba(vectorized_text)
+    return prediction_score
 
 
 # sentences = ['amazing product', 'not expected with the quality', 'great experience']
@@ -619,41 +637,110 @@ def proceed_yt_url(request):
 
     def sentiment_model(df_comments):
         # Retrieve df_comments from the session
-        
+        rows = []
+        rows_2 = []
         
         sentences = df_comments['Comments']
-        preprocessed_sentences = preprocessing(sentences)
-
-        vectorized_sentences = vectorizer(preprocessed_sentences, tokens)
-
-        predictions = [get_prediction(vectorized_sentence) for vectorized_sentence in vectorized_sentences]
-
-        # Create a DataFrame
-        output_df = pd.DataFrame({'Sentence': sentences, 'Sentiment': predictions})
-
-        # Print the DataFrame
-        #print(output_df)
         
-        return output_df
+        for sentence in sentences:
+            if sentence.strip():  # Check if the sentence is not empty or contains only whitespace
+                preprocessed_sentence = preprocessing([sentence])
+                #logging.info(f'Preprocessed Text : {preprocessed_sentence}')
 
+                vectorized_sentence = vectorizer(preprocessed_sentence, tokens)
+                #logging.info(f'Vectorized Text : {vectorized_sentence}')
+
+                prediction_scores = get_prediction(vectorized_sentence)
+
+                prediction = categorize(prediction_scores[0, 1])
+                # Get the top 5 maximum numbers
+
+                
+                #logging.info(f'Prediction : {prediction}')
     
-    df_comments_yt = sentiment_model(df_comments)
+                rows.append({'Sentence': sentence, 'Sentiment': prediction})
+                rows_2.append({'Sentence': sentence, 'prediction_scores': prediction_scores})
+
+ 
+        output_df = pd.DataFrame(rows)
+        output_df_2 = pd.DataFrame(rows_2)
+        
+        print(output_df_2)
+        output_df_2['score'] = output_df_2['prediction_scores'].apply(lambda x: x[0][1])
+        output_df_2 = output_df_2.drop('prediction_scores', axis=1)
+
+
+        print(output_df_2)
+        df_sorted_p = output_df_2.sort_values(by='score', ascending=False)
+        filtered_df = df_sorted_p[df_sorted_n['score'] > positive_threshold]
+        
+        if not filtered_df.empty:
+            top_positive_comments = filtered_df['Sentence'].head(5)
+            print(top_positive_comments)
+        else:
+            print("No positive comments with score greater than 0.7 found.")
+        
+        df_sorted_n= output_df_2.sort_values(by='score', ascending=True)
+        
+        filtered_df = df_sorted_n[df_sorted_n['score'] < negative_threshold]
+        
+        if not filtered_df.empty:
+            top_negative_comments = filtered_df['Sentence'].head(5)
+            print(top_negative_comments)
+        else:
+            print("No negative comments with score less than 0.4 found.")
+        
+        
+        return output_df,top_positive_comments,top_negative_comments
+
+    # keyword_df = request.session.get('keyword_df', [])
+    
+    df_comments_yt,top_positive_comments,top_negative_comments = sentiment_model(df_comments)
     
     df_comments_yt = df_comments_yt['Sentiment'].value_counts().reset_index()
     
     print(df_comments_yt)
-  # Assuming your dataframe is named df_comments_yt_counts
-    p_count = df_comments_yt[df_comments_yt['Sentiment'] == 'positive']['count'].iloc[0]
-    neg_count = df_comments_yt[df_comments_yt['Sentiment'] == 'negative']['count'].iloc[0]
+    # Assuming your dataframe is named df_comments_yt_counts
+    # Initialize counts
+    p_count, neg_count, neu_count = 0, 0, 0
+    
+    sentiments = ['positive', 'negative', 'neutral']
+    # Loop through sentiments and update counts
+    for sentiment in sentiments:
+        if sentiment in df_comments_yt['Sentiment'].values:
+            count = df_comments_yt.loc[df_comments_yt['Sentiment'] == sentiment, 'count'].iloc[0]
+            if sentiment == 'positive':
+                p_count = count
+            elif sentiment == 'negative':
+                neg_count = count
+            elif sentiment == 'neutral':
+                neu_count = count
+
 
     # If you want to convert the counts to integers, you can do that:
     p_count = int(p_count)
     neg_count = int(neg_count)
+    neu_count = int(neu_count)
+
+    
 
     print(p_count)
     print(neg_count)
+    print(neu_count)
 
+
+    tp1 = top_positive_comments[0]
+    tp2 = top_positive_comments[1]
+    tp3 = top_positive_comments[2]
+    tp4 = top_positive_comments[3]
+    tp5 = top_positive_comments[4]
     
+    
+    tn1 = top_negative_comments[0]
+    tn2 = top_negative_comments[1]
+    tn3 = top_negative_comments[2]
+    tn4 = top_negative_comments[3]
+    tn5 = top_negative_comments[4]
     
     
     return render(request,"sentiment_analysis.html",
@@ -669,7 +756,11 @@ def proceed_yt_url(request):
                    'avg_n_v':avg_n_v,
                    'country':country,
                    'p_count':p_count,
-                   'neg_count':neg_count})
+                   'neg_count':neg_count,
+                   'neu_count':neu_count,
+                   'tp1':tp1,'tp2':tp2,'tp3':tp3,'tp4':tp4,'tp5':tp5,
+                   'tn1':tn1,'tn2':tn2,'tn3':tn3,'tn4':tn4,'tn5':tn5,                
+                   })
 
     
 
