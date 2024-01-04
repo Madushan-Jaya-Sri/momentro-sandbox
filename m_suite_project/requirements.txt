@@ -124,7 +124,6 @@ transformers==4.31.0
 trio==0.22.2
 trio-websocket==0.10.3
 Twisted==22.10.0
-twisted-iocpsupport==1.0.3
 typing_extensions==4.7.1
 tzdata==2023.3
 urllib3==2.0.3
