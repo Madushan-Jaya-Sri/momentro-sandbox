@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
-          python-version: '3.12'
+          python-version: '3.11'
 
       - name: Create and start virtual environment
         run: |
@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'momentrosandbox'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_38B1CCF374E74BCC99EF889422E17E1D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C2B0A92785CB43C59C6DC0A8D7C8BF66 }}
