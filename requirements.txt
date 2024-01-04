@@ -22,7 +22,6 @@ debugpy==1.6.7.post1
 decorator==5.1.1
 demoji==1.1.0
 distlib==0.3.7
-distutils==3.12.1
 Django==4.2.2
 django-mongoengine==0.5.6
 dnspython==2.4.2
