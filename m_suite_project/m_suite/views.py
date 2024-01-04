@@ -38,7 +38,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException,ElementNotInteractableException
+from selenium.common.exceptions import TimeoutException, NoSuchWindowException ,StaleElementReferenceException, ElementClickInterceptedException, NoSuchElementException,ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 
 # Miscellaneous
@@ -593,6 +593,9 @@ def proceed_yt_url(request):
                 print("")
                 
             except ElementNotInteractableException:
+                print("")
+                
+            except NoSuchWindowException:
                 print("")
                 
                 
