@@ -1,6 +1,6 @@
 import os
-from .settings import *
-from .settings import BASE_DIR
+from .m_suite_project.settings import *
+from .m_suite_project.settings import BASE_DIR
 
 
 SECRET_KEY = os.environ['SECRET']

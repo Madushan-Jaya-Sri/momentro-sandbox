@@ -58,6 +58,32 @@ def website_keyword(request):
  
 extracted_links = []
     
+    
+def generate_wordcloud_image(keyword_df):
+    # Create a dictionary from the DataFrame for WordCloud input
+    word_dict = dict(zip(keyword_df['Keyword'], keyword_df['Count']))
+    # Check if the word_dict is empty
+    if not word_dict:
+        # Handle the case where there are no words
+        print("No words to plot in the word cloud.")
+        return None
+    
+    meta_mask = np.array(Image.open('assets/images/globe.png'))
+    # meta_mask = np.array(Image.open('E:/enfection/internal_product/M_suite/M_Suite_p/assets/images/meta.png'))
+
+    # Generate the WordCloudv 
+    #wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_dict)
+    wordcloud = WordCloud(background_color = 'white',margin=10 , mask=meta_mask, contour_width = 2, colormap = 'BuPu_r',contour_color = 'white').generate_from_frequencies(word_dict)
+
+    # Save the WordCloud image to a BytesIO object
+    image_stream = BytesIO()
+    wordcloud.to_image().save(image_stream, format='PNG')
+    image_stream.seek(0)
+
+    # Encode the image in base64
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    return image_base64    
+    
 def extract_links(request):
     output_url = "" 
     
@@ -164,31 +190,6 @@ def extract_links(request):
     keyword_list = keyword_df.iloc[0:9,:].to_dict(orient='records')
     keyword_list_bar = keyword_df.to_dict(orient='records')
 
-
-    def generate_wordcloud_image(keyword_df):
-        # Create a dictionary from the DataFrame for WordCloud input
-        word_dict = dict(zip(keyword_df['Keyword'], keyword_df['Count']))
-        # Check if the word_dict is empty
-        if not word_dict:
-            # Handle the case where there are no words
-            print("No words to plot in the word cloud.")
-            return None
-        
-        meta_mask = np.array(Image.open('assets/images/globe.png'))
-       # meta_mask = np.array(Image.open('E:/enfection/internal_product/M_suite/M_Suite_p/assets/images/meta.png'))
-
-        # Generate the WordCloudv 
-        #wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_dict)
-        wordcloud = WordCloud(background_color = 'white',margin=10 , mask=meta_mask, contour_width = 2, colormap = 'BuPu_r',contour_color = 'white').generate_from_frequencies(word_dict)
-
-        # Save the WordCloud image to a BytesIO object
-        image_stream = BytesIO()
-        wordcloud.to_image().save(image_stream, format='PNG')
-        image_stream.seek(0)
-
-        # Encode the image in base64
-        image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
-        return image_base64
     
   
     
@@ -537,7 +538,14 @@ def proceed_yt_url(request):
                 # time.sleep(4)
                 
                 comment_count = driver.find_element(By.XPATH,'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[1]/ytd-comments-header-renderer/div[1]/h2/yt-formatted-string/span[1]')
-                no_comments = int(comment_count.text)
+                string_with_comma = comment_count.text
+
+                # Check if the string contains a comma
+                if ',' in string_with_comma:
+                    string_without_comma = string_with_comma.replace(',', '')
+                    no_comments = int(string_without_comma)
+                else:
+                    no_comments = int(string_with_comma)
             
                 if no_comments == 0:
                      for _ in range(1):
