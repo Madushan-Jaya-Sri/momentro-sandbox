@@ -1,0 +1,436 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M-Suite Admin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+      integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="site-main">
+    <!-- Header -->
+    
+    <!-- Body Content -->
+    <main>
+        <div class="page"> 
+          <div class="row g-0">
+            <div class="col-12 col-md-3 col-lg-3">
+              <div class="nav-wraper">
+                <div class="inner-wrapper">
+                  <div class="logo">
+                    <img class="img-fluid site-logo"src="{% static 'images/site-logo.png' %}"alt="Logo"/>
+                  </div>
+                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">               
+                    
+                      <!-- Overview -->   
+  
+                      <a href="{% url 'overview' %}">
+                        <button class="nav-link active " id="v-pills-overview-tab" data-bs-toggle="pill" data-bs-target="#v-pills-overview" 
+                      type="button" role="tab" aria-controls="v-pills-overview" aria-selected="true"><img src="{% static 'images/1.png' %}" alt="" class="icon"> Overview</button>
+                      </a>   
+                              
+                      
+                      
+                      <!-- Website Keyword Analysis -->
+                      <a href="{% url 'website_keyword' %}">
+                        <button class="nav-link" id="v-pills-website-keyword-tab" data-bs-toggle="pill" data-bs-target="/website-keyword"
+                        type="button" role="tab" aria-controls="v-pills-website-keyword" aria-selected="true"><img src="{% static 'images/2.png' %}"  alt="" class="icon">Website Keyword Analysis</button>
+                      </a>
+                      
+                      
+                        <!-- Brand Personility Audit -->
+                        <a href="{% url 'brand_personality' %}">
+                        <button class="nav-link" id="v-pills-brand-tab" data-bs-toggle="pill" data-bs-target="#v-pills-brand" 
+                      type="button" role="tab" aria-controls="v-pills-brand" aria-selected="false"><img src="{% static 'images/3.png' %}"  alt="" class="icon">Brand Personality Audit</button>
+                        </a>
+                      
+                      
+                      <!-- Setiment Analysis -->
+                      <a href="{% url 'sentiment_analysis' %}">
+                        <button class="nav-link" id="v-pills-sentiment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sentiment" 
+                      type="button" role="tab" aria-controls="v-pills-sentiment" aria-selected="false"><img src="{% static 'images/4.png' %}"  alt="" class="icon">Youtube Analyzer</button>
+                      </a>
+                      
+                      
+                      <!-- Profile Analyzer -->
+                      <a href="{% url 'profile_analyzer' %}">
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" 
+                      type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><img src="{% static 'images/5.png' %}"  alt="" class="icon">Profile Analyzer</button>
+                      </a>
+                      
+                      
+                      <!-- Brand Authority -->
+                      <a href="{% url 'brand_authority' %}">
+                        <button class="nav-link" id="v-pills-authority-tab" data-bs-toggle="pill" data-bs-target="#v-pills-authority" 
+                      type="button" role="tab" aria-controls="v-pills-authority" aria-selected="false"><img src="{% static 'images/6.png' %}"  alt="" class="icon">Brand Authority</button> 
+                      </a>
+                     
+    
+        
+                  </div>
+                  <div class="bottom-image">
+                    <img src="{% static 'images/side-nav-bottom.png' %}" alt="" class="bottom">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-9 col-lg-9">
+              <div class="tab-content" id="v-pills-tabContent">
+            
+                <!-- Overview -->
+                <div class="tab-pane fade show active " id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
+                  <div class="overview">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="overview-title">
+                            Overview
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}" alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="linechart-overview">
+                          <canvas id="overview-line-chart" height="0vh" width="100%"></canvas>    
+                          <canvas id="myCharts" height="0vh" width="100%"></canvas>                
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4 col-lg-4">
+                        <div class="doughnut-overview">
+                          <div class="title-users">
+                            <h3 class="title">
+                              Number of Users in Sri Lanka
+                            </h3>
+                          </div>
+                          <canvas class="overview-doughnut-chart" height="20px" width="100%"></canvas>                    
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg 2">
+                        <div class="calander">
+                          <p class="month">December</p>
+                          <h2 class="date">17</h2>
+                          <p class="day">Thursday</p>
+                        </div>
+                        <div class="did-know">
+                          <h3 class="title">
+                            Did You Know?
+                          </h3>
+                          <p class="description">
+                            Lorem ipsum dolor sit
+                             amet, consectetur adipiscing elit, incididunt ut 
+                              labore et dolore magna aliqua.
+                          </p>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="ourtools-title">
+                      <h3 class="title">
+                        Our Tools
+                      </h3>
+                    </div>
+                    <div class="tools">
+                      <div class="card">
+                        <img src="{% static 'images/o-1.png' %}"  height="90px" alt="" class="icon">
+                        <p class="name">Youtube Analyzer</p>
+                    </div>
+                
+                    <div class="card">
+                        <img src="{% static 'images/o-2.png' %}"  height="90px" alt="" class="icon">
+                        <p class="name">Website Keyword Analysis</p>
+                    </div>
+                
+                    <div class="card">
+                      <img src="{% static 'images/o-3.png' %}"  height="90px" alt="" class="icon">
+                        <p class="name">Brand Personality Audit</p>
+                    </div>
+                
+                    <div class="card">
+                      <img src="{% static 'images/o-4.png' %}"  height="90px" alt="" class="icon">
+                        <p class="name">Profile Analyzer</p>
+                    </div>
+                
+                    <div class="card">
+                      <img src="{% static 'images/o-5.png' %}"  height="90px" alt="" class="icon">
+                        <p class="name">Brand Authority</p>
+                    </div>
+                    </div>
+
+                    <div class="row g-0">
+                      <div class="col-12 col-md-6 col-lg-6">
+                        
+ 
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-6">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+
+                </div>
+                
+    
+                
+
+                </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+    <!-- footer -->
+      <footer class="footer-wrap py-3">
+        <div class="container">
+          <p class="copyright-text text-center mb-0">
+            © 2023 M-Suite All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+
+      <script>
+        document.getElementById('overview-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+      <script>
+        document.getElementById('sentiment_analysis-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+        <script>
+          document.getElementById('brand_authority-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+        <script>
+          document.getElementById('brand_personality-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+      
+          <script>
+            document.getElementById('profile_analyzer-link').addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent the default behavior of the link
+                window.location.href = this.getAttribute('href');
+            });
+            </script>
+            <script>
+              document.getElementById('website_keyword-link').addEventListener('click', function(event) {
+                  event.preventDefault();  // Prevent the default behavior of the link
+                  window.location.href = this.getAttribute('href');
+              });
+              </script>
+    <!-- Scripts -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.min.js"></script>
+
+
+
+    <!-- donut chart overview -->
+    <script>
+      const chartData = {
+        labels: ["python", "java", "javascript", "c#", "others"],
+        data: [30, 40, 10, 7, 36]
+      };
+
+      const myChart = document.querySelector(".overview-doughnut-chart");
+
+      new Chart(myChart,{
+        type: "doughnut",
+        data: {
+          labels: chartData.labels,
+          datasets: [
+            {
+              label: "languages",
+              data: chartData.data,
+            },
+          ],
+        },
+        options: {
+          borderWidth: 10,
+          borderRadius: 2,
+          hoverBorderWidth: 5,
+          Plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        }
+      });
+    </script>
+
+    <!-- line chart Overview-->
+    <script>
+      const usersNumbers = [
+        { year: '2010', users: { youtube: 1500, facebook: 200, instagram: 100, twitter: 500, linkedin: 400} },
+        { year: '2011', users: { youtube: 1600, facebook: 100, instagram: 200, twitter: 400, linkedin: 600} },
+        { year: '2012', users: { youtube: 1700, facebook: 300, instagram: 400, twitter: 300, linkedin: 700} },
+        { year: '2013', users: { youtube: 1800, facebook: 400, instagram: 500, twitter: 500, linkedin: 100} },
+        { year: '2014', users: { youtube: 1850, facebook: 500, instagram: 150, twitter: 500, linkedin: 500} },
+        { year: '2015', users: { youtube: 1400, facebook: 600, instagram: 200, twitter: 400, linkedin: 300} },
+        { year: '2016', users: { youtube: 1300, facebook: 700, instagram: 400, twitter: 700, linkedin: 800} },
+        { year: '2017', users: { youtube: 1300, facebook: 700, instagram: 400, twitter: 800, linkedin: 700} }
+      ];
+      // 'rgba(255, 26, 104, 0.2)',
+      //     'rgba(54, 162, 235, 0.2)',
+      //     'rgba(255, 206, 86, 0.2)'
+
+    // setup 
+    const data = {
+      // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'youtube',
+        data: usersNumbers,
+        backgroundColor: '#ff0000',
+        borderColor:'#ff0000',
+        tension:0.4,
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'users.youtube'
+        }
+      },{
+        label: 'facebook',
+        data: usersNumbers,
+        backgroundColor: '#0861f2',
+        borderColor:'#0861f2',
+        tension:0.4,
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'users.facebook'
+        }
+      },{
+        label: 'instagram',
+        data: usersNumbers,
+        backgroundColor: '#ff9000',
+        borderColor:'#ff9000',
+        tension:0.4,
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'users.instagram'
+        }
+      },{
+        label: 'twitter',
+        data: usersNumbers,
+        backgroundColor: '#00000',
+        borderColor:'#00000',
+        tension:0.4,
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'users.twitter'
+        }
+      },{
+        label: 'linkedin',
+        data: usersNumbers,
+        backgroundColor: '#004182',
+        borderColor:'#004182',
+        tension:0.4,
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'users.linkedin'
+        }
+      }]
+    };
+
+    // config 
+    const config = {
+      type: 'line',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+
+    // render init block
+    const myCharts = new Chart(
+      document.getElementById('myCharts'),
+      config
+    );
+    
+
+    // Instantly assign Chart.js version
+    const chartVersion = document.getElementById('chartVersion');
+    chartVersion.innerText = Chart.version;
+    </script>
+
+<!-- Website Barchart -->
+<script>
+  const ctx = document.getElementById('wordcount-chart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Black', 'White', 'Silver', 'Gold'],
+      datasets: [{
+        label: 'Number of Wordcount',
+        data: [1200, 1000, 890, 700, 600, 500, 400, 300, 200, 100],
+        backgroundColor: '#a9218d',
+        barThickness: 25,
+        borderWidth: 2        
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+    layout: {
+        padding: {
+          top: 50, // Adjust the top padding to set the height of the plot area
+          bottom: 20, // Adjust the bottom padding if needed
+        }
+      },
+      maintainAspectRatio: false,
+      barPercentage: 6,
+      categoryPercentage: 1,
+    });
+</script>
+    <!-- External -->
+    <script src="./assets/js/scripts-min.js"></script>
+  </body>
+</html>

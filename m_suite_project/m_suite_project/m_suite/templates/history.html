@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M-Suite Admin</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+      integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="site-main">
+    <!-- Header -->
+    
+    <!-- Body Content -->
+    <main>
+        <div class="page"> 
+          <div class="row g-0">
+            <div class="col-12 col-md-3 col-lg-3">
+              <div class="nav-wraper">
+                <div class="inner-wrapper">
+                  <div class="logo">
+                    <img class="img-fluid site-logo" src="{% static 'images/site-logo.png' %}"alt="Logo"/>
+                  </div>
+                  
+                  <div class="bottom-image">
+                    <img src="{% static 'images/side-nav-bottom.png' %}" alt="" class="bottom">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-9 col-lg-9">
+              <div class="tab-content" id="v-pills-tabContent">
+            
+
+                
+                <!-- Brand Authority -->
+                <div class="tab-pane fade show active" id="v-pills-authority" role="tabpanel" aria-labelledby="v-pills-authority-tab">
+                  <div class="website">
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-10">
+                        <div class="title">
+                          <h2 class="website-title">
+                           All records are available
+                          </h2>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2 col-lg-2">
+                        <div class="user">
+                          <img src="{% static 'images/user.png' %}"alt="" class="aveter">
+                         </div>
+                      </div>
+                    </div>
+                    <div class="div">
+                      {% comment %} <h1>
+                        Comming Soon
+                      </h1> {% endcomment %}
+
+                      
+                      <h3>Websites keywords data</h3>
+                      <table border="1">
+                          <tr>
+                              <th>Keyword</th>
+                              <th>Count</th>
+                              <th>URL</th>
+                          </tr>
+                          {% for keyword_entry in keyword_data %}
+                              <tr>
+                                  <td>{{ keyword_entry.Keyword }}</td>
+                                  <td>{{ keyword_entry.Count }}</td>
+                                  <td>{{ keyword_entry.Url }}</td>
+                              </tr>
+                          {% endfor %}
+                      </table>
+                      
+                      <h3>YouTube Comments Data</h3>
+                      <table border="1">
+                          <tr>
+                              <th>Channel Name</th>
+                              <th>Comments</th>
+                          </tr>
+                          {% for yt_comments_entry in yt_comments_data %}
+                              <tr>
+                                  <td>{{ yt_comments_entry.Channel_Name }}</td>
+                                  <td>{{ yt_comments_entry.Comments }}</td>
+                              </tr>
+                          {% endfor %}
+                      </table>
+                      
+               
+                      
+
+
+                    </div>
+                  </div>
+                </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+      <footer class="footer-wrap py-3">
+        <div class="container">
+          <p class="copyright-text text-center mb-0">
+            © 2023 M-Suite All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+
+      <script>
+        document.getElementById('overview-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+      <script>
+        document.getElementById('sentiment_analysis-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            window.location.href = this.getAttribute('href');
+        });
+        </script>
+        <script>
+          document.getElementById('brand_authority-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+        <script>
+          document.getElementById('brand_personality-link').addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent the default behavior of the link
+              window.location.href = this.getAttribute('href');
+          });
+          </script>
+      
+          <script>
+            document.getElementById('profile_analyzer-link').addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent the default behavior of the link
+                window.location.href = this.getAttribute('href');
+            });
+            </script>
+
+            <script>
+              document.getElementById('website_keyword-link').addEventListener('click', function(event) {
+                  event.preventDefault();  // Prevent the default behavior of the link
+                  window.location.href = this.getAttribute('href');
+              });
+              </script>
+   
+    <!-- External -->
+    <script src="./assets/js/scripts-min.js"></script>
+  </body>
+</html>
